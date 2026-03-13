@@ -5,3 +5,13 @@ rta_db
 *.db
 .DS_Store
 venv/
+app.py
+database.py
+memory_engine.py
+rag_engine.py
+scene_engine.py
+scripture_pipeline.py
+sensing_engine.py
+translated_verses.json
+twilio_engine.py
+video_engine.py
