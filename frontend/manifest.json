@@ -1,0 +1,14 @@
+{
+  "name": "Ṛta — Reflective Intelligence",
+  "short_name": "Ṛta",
+  "description": "Order. Alignment. Balance.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#02010A",
+  "theme_color": "#C4A882",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
