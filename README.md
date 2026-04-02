@@ -6,7 +6,7 @@
 
 Ṛta is an AI-powered clarity engine for emotional and cognitive load. It listens to what is weighing on you, finds the wisdom within it, and returns it as a cinematic experience - ancient scripture, animated into light.
 
-🌐 **Live at [rta-ai.netlify.app](https://rta-ai.netlify.app)**
+🌐 **Live at [rta-app.netlify.app](https://rta-ai.netlify.app)**
 
 ---
 
