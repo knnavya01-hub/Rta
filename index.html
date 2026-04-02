@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 // CHAT
-const API_BASE='https://rta-backend-production.up.railway.app';
+const API_BASE='https://rta-backend-production.railway.app';
 let history=[],waiting=false,micOn=false,mRec=null,mChunks=[];
 function addMsg(role,text,anim=true){
   const chat=document.getElementById('chat');
@@ -735,7 +735,7 @@ async function sendMsg(){
   addMsg('user',text,false);inp.value='';history.push({role:'user',content:text});
   waiting=true;document.getElementById('fus').style.display='none';showTyping();tone(380,'sine',.25,.025);
   try{
-    const res=await fetch('https://rta-backend-production.up.railway.app/api/sense',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,user_id:'demo',session_history:history})});
+    const res=await fetch('https://rta-backend-production.railway.app/api/sense',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,user_id:'demo',session_history:history})});
     const data=await res.json();hideTyping();
     window._sensing=data.sensing||{primary_emotion:'Heaviness'};
     const sensing=data.sensing||{};
@@ -755,7 +755,7 @@ document.getElementById('main-input').addEventListener('keydown',e=>{if(e.key===
 
 async function loadWisdom(ctx){
   try{
-    const res=await fetch('https://rta-backend-production.up.railway.app/api/story',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context:ctx,sensing:window._sensing||{},user_id:'demo',animate:true,session_history:history})});
+    const res=await fetch('https://rta-backend-production.railway.app/api/story',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context:ctx,sensing:window._sensing||{},user_id:'demo',animate:true,session_history:history})});
     const data=await res.json();
     document.getElementById('loading').classList.remove('show');
     if(data.video_url){const v=document.getElementById('wisdom-vid');v.src=data.video_url;v.style.display='block';document.getElementById('vid-ph').style.display='none';}
@@ -787,7 +787,7 @@ function toggleMic(){
     mRec.ondataavailable=e=>mChunks.push(e.data);
     mRec.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());micOn=false;btn.classList.remove('on');
       const blob=new Blob(mChunks,{type:'audio/webm'});const fd=new FormData();fd.append('audio',blob);
-      try{const r=await fetch('https://rta-backend-production.up.railway.app/api/transcribe',{method:'POST',body:fd});const d=await r.json();if(d.text){document.getElementById('main-input').value=d.text;sendMsg();}}catch(e){}};
+      try{const r=await fetch('https://rta-backend-production.railway.app/api/transcribe',{method:'POST',body:fd});const d=await r.json();if(d.text){document.getElementById('main-input').value=d.text;sendMsg();}}catch(e){}};
     mRec.start();tone(520,'sine',.2,.04);
   }).catch(()=>alert('Please allow microphone access'));
 }
@@ -797,10 +797,10 @@ function stopMic(){if(window._rec){try{window._rec.stop();}catch(e){}}if(mRec&&m
 function playVid(){const v=document.getElementById('wisdom-vid');if(v.src&&v.src!==window.location.href){document.getElementById('vid-ph').style.display='none';v.style.display='block';v.play();}else{tone(280,'sine',.8,.05);}}
 
 // ALIGNMENT
-async function saveAlign(){const text=document.getElementById('align-text').value.trim();if(!text)return;tone(420,'sine',.5,.04);try{await fetch('https://rta-backend-production.up.railway.app/api/journal/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entry:text,date:new Date().toISOString()})});}catch(e){}document.getElementById('align-note').textContent='Saved to your journal ✦';setTimeout(()=>{document.getElementById('align-note').textContent='';},3000);}
+async function saveAlign(){const text=document.getElementById('align-text').value.trim();if(!text)return;tone(420,'sine',.5,.04);try{await fetch('https://rta-backend-production.railway.app/api/journal/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entry:text,date:new Date().toISOString()})});}catch(e){}document.getElementById('align-note').textContent='Saved to your journal ✦';setTimeout(()=>{document.getElementById('align-note').textContent='';},3000);}
 
 // BALANCE
-function animBal(){document.querySelectorAll('.bal-b').forEach(b=>{setTimeout(()=>{b.style.width=(b.dataset.w||'70')+'%';},200);});fetch('https://rta-backend-production.up.railway.app/api/clarity').then(r=>r.json()).then(d=>{if(d.score){document.getElementById('c-score').textContent=d.score;const arc=document.getElementById('clarity-arc');if(arc){const o=276-(d.score/100*276);arc.setAttribute('stroke-dashoffset',o);}}}).catch(()=>{});}
+function animBal(){document.querySelectorAll('.bal-b').forEach(b=>{setTimeout(()=>{b.style.width=(b.dataset.w||'70')+'%';},200);});fetch('https://rta-backend-production.railway.app/api/clarity').then(r=>r.json()).then(d=>{if(d.score){document.getElementById('c-score').textContent=d.score;const arc=document.getElementById('clarity-arc');if(arc){const o=276-(d.score/100*276);arc.setAttribute('stroke-dashoffset',o);}}}).catch(()=>{});}
 
 // SPARKS
 const demoSparks=[
@@ -818,7 +818,7 @@ function renderSparks(sparks){
 }
 function toggleSpk(i,btn){const f=document.getElementById('skf-'+i);const open=f.classList.toggle('open');btn.textContent=open?'Read less':'Read more';tone(350,'sine',.25,.015);}
 function playSpk(i){tone(380,'sine',.6,.04);goTo('s-order');}
-async function loadSparks(){try{const r=await fetch('https://rta-backend-production.up.railway.app/api/sparks');const d=await r.json();renderSparks(d.sparks||demoSparks);}catch(e){renderSparks(demoSparks);}}
+async function loadSparks(){try{const r=await fetch('https://rta-backend-production.railway.app/api/sparks');const d=await r.json();renderSparks(d.sparks||demoSparks);}catch(e){renderSparks(demoSparks);}}
 
 // SOS
 function triggerSOS(){tone(520,'sine',.3,.08);alert('Connecting you to support...\nIn a real emergency please call 112.');}
